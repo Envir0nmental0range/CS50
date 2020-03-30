@@ -5,8 +5,7 @@ int main() {
     rows = 0;
     do
         {
-    printf("Enter number of rows: ");
-        scanf("%d", &rows);
+    rows = get_int("Enter number of rows: ");
 
     }while((rows > 8) || (rows < 1));
            
