@@ -2,10 +2,11 @@
 #include <cs50.h>
 #include <ctype.h>
 #include <string.h>
-#include <math.h>
+//#include <math.h>
 
 int main(int argc, string argv[])
 {
+    int i, j;
     string cipher = argv[1];
     if (argc < 2)
     {
@@ -23,8 +24,7 @@ int main(int argc, string argv[])
         printf("error: cipher must be exactly 26 letters\n");
         return 1;
     }
-    for (int i = 0; cipher[i]; i++)
-
+    for (i = 0; cipher[i]; i++)
     {
         if (isalpha(cipher[i]) == 0)
         {
@@ -32,17 +32,72 @@ int main(int argc, string argv[])
             return 1;
         }
     }
-
     printf("cipher = %s\n", cipher);
     // check for duplicates using cast to lowercase cipher
     char lowerCaseCipher[26];
-    for (int i = 0; cipher[i]; i++)
+    for (i = 0; cipher[i]; i++)
     {
         lowerCaseCipher[i] = tolower(cipher[i]);
     }
     printf("lower case cipher = %s\n", lowerCaseCipher);// to complete
+    for (i = 0; i < 26; i++)
+    {
+        for (j = i + 1; j < 26; j++)
+        {
+            if (lowerCaseCipher[i] == lowerCaseCipher[j])
+                {
+                printf("Duplicate character found in cipher: %c\n", lowerCaseCipher[i]);
+                return 1;
+                }
+            }
+        }
+    char alphabet[26] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+    int appliedCiphers[26];
+    for (i = 0; i < 26; i++)
+    {
+        appliedCiphers[i] = lowerCaseCipher[i] - alphabet[i];
+        //printf("%d, %d, %d ->\n",  appliedCiphers[i], lowerCaseCipher[i], alphabet[i]);
+    }
+    string plainText = get_string("plaintext: ");
+    int length = strlen(plainText);
+    int upperCases[length];
+    char cipherText[length], lowerCaseCipherText[length], lowerCasePlainText[length];
+    for (i = 0; cipher[i]; i++)
+    {
+        lowerCasePlainText[i] = tolower(plainText[i]);
+        if (lowerCasePlainText[i] == plainText[i])
+        {
+            upperCases[i] = 0;
+        }
+        else
+        {
+            upperCases[i] = 1;
+        }
+    }
+    for (i = 0; i < length; i++) {
+        for (j = 0; j < 26; j++)
+        {
+            if (lowerCasePlainText[i] == alphabet[j])
+            {
+                lowerCaseCipherText[i] = lowerCaseCipher[j];
+            }
+        }
+    }
+    for (i = 0; i < length; i++)
+    {
+        if (upperCases[i] == 0)
+        {
+            cipherText[i] = lowerCaseCipherText[i];
+        }
+        else
+        {
+            cipherText[i] = toupper(lowerCaseCipherText[i]);
+        }
+    }
+    for (i = 0; i < length; i++)
+    {
+        printf("%c", cipherText[i]);
+    }
+    printf("\n");
 
-
-    //get plaintext
-    
-    //apply cipher
+}
