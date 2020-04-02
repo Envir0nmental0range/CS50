@@ -90,11 +90,11 @@ void print_winner(void)
         }
     }
     for (j = 0; j < candidate_count; j++)
+    {
+        if (candidates[j].votes == maxVotes)
         {
-            if (candidates[j].votes == maxVotes)
-            {
-                printf("%s\n", candidates[j].name);
-            }
+            printf("%s\n", candidates[j].name);
         }
+    }
     return;
 }
